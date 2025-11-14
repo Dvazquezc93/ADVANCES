@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tema 9.3 html </title>
+        <link rel="icon" type="imagen/x-icon" href="imagen/favicon.ico"> 
+        <style>
+            table,
+            th,
+            td{
+                border: 1px solid gray;
+               border-collapse: collapse;
+            }
+            th,
+            td {
+                text-align: left;
+                padding: 15px
+            }
+            tr:nth-child(even) {
+                background-color: rgba(214, 238, 238, 0.3);
+            }
+            tr:nth-child(odd){
+                background-color: rgba(214, 170, 238,0.3);
+            }
+            th:nth-child(even){
+                background-color: rgba(221,221,170,0.3);
+            }
+        </style>
+    </head>
+    <body>
+        <table style="width:100%;">
+            <caption>LISTADO DE TRABAJADORES</caption>
+            <tr>
+                <th colspan="2" style="text-align: center;">PROPIEDAD</th>
+                <th rowspan="2"style="text-align:center;">Edad</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Nombre</th>
+                <th style="text-align: center;">Apellidos</th>
+                
+            </tr>
+            <tr>
+                <td style="padding: 5px;">Carlos</td>
+                <td style="padding: 5px;">Pedraza</td>
+                <td style="padding: 5px;">25</td>
+                
+            </tr>
+            <tr>
+                <td style="padding: 5px;">Rocio</td>
+                <td style="padding: 5px;">Castro</td>
+                <td style="padding: 5px;">31</td>
+                
+            </tr>
+        </table>
+        <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Pagado</th>
+        </tr>
+        <tr>
+            <th>Pedro</th>
+            <th>Garcia</th>
+            <th>200€</th>
+        </tr>
+        <tr>
+            <th>Silvia</th>
+            <th>Hurtado</th>
+            <th>150€</th>
+        </tr>
+        <tr>
+            <th>Laura</th>
+            <th>Noesta</th>
+            <th>450</th>
+        </tr>
+        </table>
+        <table style="width:100%;">
+            <caption>Tablas</caption>
+            <tr>
+                <th style="width: 25%; background-color: blue;color: white;">Datos</th>
+                <th style="text-align:center;">N1</th>
+                <th style="text-align:center;">N2</th>
+            </tr>
+            <tr>
+                <td style="width: 25%; background-color: blue;color: white;">D1</td>
+                <td style="text-align:center;">N1</td>
+                <td style="text-align:center;">N2</td>
+                
+            </tr>
+            <tr>
+                <td style="padding: 5px;">Carlos</td>
+                <td style="padding: 5px;">Pedraza</td>
+                <td style="padding: 5px;">25</td>
+                
+            </tr>
+            <tr>
+                <td style="padding: 5px;">Rocio</td>
+                <td style="padding: 5px;">Castro</td>
+                <td style="padding: 5px;">31</td>
+                
+            </tr>
+        </table>
+
+     
+    </body>
+ </html>
