@@ -1,8 +1,9 @@
 package ejercicios.Ejercicio07;
 
 public class Persona {
-	private String nombre;
-	private Integer edad;
+	protected String nombre;
+	protected Integer edad;
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -15,4 +16,9 @@ public class Persona {
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
+	@Override
+	public String toString() {
+		return "Persona [nombre=" + nombre + ", edad=" + edad + "]";
+	}
+	
 }

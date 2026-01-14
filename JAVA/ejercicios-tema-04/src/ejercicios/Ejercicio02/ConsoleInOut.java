@@ -2,6 +2,8 @@ package ejercicios.Ejercicio02;
 
 import java.util.Scanner;
 
+import ejercicios.Ejercicio04.Alumno;
+
 public class ConsoleInOut {
 	private Scanner skynnet;
 
@@ -17,45 +19,53 @@ public class ConsoleInOut {
 		System.out.println(phraseUser);
 	}
 
-	public Integer readInteger(String phraseUser, Integer numberUser) {
-		System.out.println(phraseUser);
-		numberUser = skynnet.nextInt();
+	public Integer readInteger(String phraseUser) {
+		write(phraseUser);
+		Integer numberUser = skynnet.nextInt();
+		skynnet.nextLine();
 		return numberUser;
 	}
 
 	public void readInteger(String phraseUser, Integer numberMax, Integer numberMin, Integer numberUser) {
 		do {
 			numberUser = skynnet.nextInt();
-		} while (numberUser > numberMin || numberUser < numberMax);
+		} while (numberUser >= numberMin || numberUser <= numberMax);
+		skynnet.nextLine();
 	}
 
-	public Double readDouble(String phraseUser, Double numberUser) {
-		System.out.println(phraseUser);
-		numberUser = skynnet.nextDouble();
+	public Double readDouble(String phraseUser) {
+		write(phraseUser);
+		Double numberUser = skynnet.nextDouble();
+		skynnet.nextLine();
 		return numberUser;
 	}
 
 	public void readDouble(String phraseUser, Double numberMax, Double numberMin, Double numberUser) {
 		do {
 			numberUser = skynnet.nextDouble();
-		} while (numberUser > numberMin || numberUser < numberMax);
-	}
-
-	public void readString(String phraseUser, String phraseNoEmpty) {
-		do {
-			phraseNoEmpty = skynnet.nextLine();
-		} while (phraseNoEmpty.isEmpty());
-	}
-
-	public void waitEnter() {
-		System.out.println("Pulse ENTER para continuar");
+		} while (numberUser >= numberMin || numberUser <= numberMax);
 		skynnet.nextLine();
 	}
 
-	public Boolean isContinue(String phraseUser, Boolean selectUser) {
+	public String readString(String phraseUser) {
+		write(phraseUser);
+		String phraseNoEmpty ="";
 		do {
+			phraseNoEmpty = skynnet.nextLine();
+		} while (phraseNoEmpty.isEmpty());
+		return phraseNoEmpty;
+	}
 
-			System.out.println("¿Desea continuar (S/N)?");
+	public void waitEnter() {
+		write("Pulse ENTER para continuar");
+		skynnet.nextLine();
+	}
+
+	public Boolean isContinue() {
+		Boolean selectUser = true;
+		String phraseUser = "";
+		do {
+			write("¿Desea continuar (S/N)?");
 			phraseUser = skynnet.nextLine();
 			if (phraseUser.equalsIgnoreCase("s")) {
 				selectUser = true;
@@ -66,4 +76,5 @@ public class ConsoleInOut {
 		} while (!(phraseUser.equalsIgnoreCase("s")) && !(phraseUser.equalsIgnoreCase("n")));
 		return selectUser;
 	}
+
 }

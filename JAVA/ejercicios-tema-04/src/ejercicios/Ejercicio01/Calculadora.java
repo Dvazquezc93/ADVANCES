@@ -28,6 +28,7 @@ public class Calculadora {
 
 			return valor;
 		} else {
+			System.out.println("Error.");
 			return valor;
 		}
 	}
