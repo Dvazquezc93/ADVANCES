@@ -1,4 +1,4 @@
-package holaN.Daima17Reloj;
+package ejercicios.Ejercicio18;
 
 import java.util.Objects;
 
@@ -13,6 +13,7 @@ public class Reloj {
 		horas = 00;
 		minutos = 00;
 		segundos = 00;
+		formato24Horas = true;
 	}
 
 	public Reloj(Integer horas, Integer minutos, Integer segundos) {
@@ -35,6 +36,10 @@ public class Reloj {
 		return segundos;
 	}
 
+	public Boolean getFormato24Horas() {
+		return formato24Horas;
+	}
+
 	public void ponerEnHora(Integer horas, Integer minutos) {
 		this.horas = horas;
 		this.minutos = minutos;
@@ -42,8 +47,7 @@ public class Reloj {
 	}
 
 	public void ponerEnHora(Integer horas, Integer minutos, Integer segundos) {
-		this.horas = horas;
-		this.minutos = minutos;
+		ponerEnHora(horas, minutos);
 		this.segundos = segundos;
 
 	}
@@ -58,17 +62,21 @@ public class Reloj {
 
 	@Override
 	public String toString() {
-		if (check()==false) {
+		if (check() == false) {
 			return "HORA INCORRECTA";
 		}
 		if (formato24Horas == true) {
-			
-			return horas + ":" + minutos + ":" + segundos;
+
+			return formatea(horas) + ":" + formatea(minutos) + ":" + formatea(segundos);
+
+		}
+
+		if (formato24Horas == false && horas > 12) {
+			return formatea((horas - 12)) + ":" + formatea(minutos) + ":" + formatea(segundos) + " pm";
 
 		}
 		if (formato24Horas == false) {
-			return (horas-12) + ":" + minutos + ":" + segundos;
-
+			return formatea(horas) + ":" + formatea(minutos) + ":" + formatea(segundos) + " am";
 		}
 		return null;
 	}
@@ -87,10 +95,14 @@ public class Reloj {
 		if (getClass() != obj.getClass())
 			return false;
 		Reloj other = (Reloj) obj;
-		return Objects.equals(formato24Horas, other.formato24Horas) && Objects.equals(horas, other.horas)
-				&& Objects.equals(minutos, other.minutos) && Objects.equals(segundos, other.segundos);
+		return Objects.equals(horas, other.horas) && Objects.equals(minutos, other.minutos)
+				&& Objects.equals(segundos, other.segundos);
 	}
-	
-	
-	
+
+	public String formatea(Integer numero) {
+		if (numero < 10) {
+			return "0" + numero;
+		}
+		return numero.toString();
+	}
 }
