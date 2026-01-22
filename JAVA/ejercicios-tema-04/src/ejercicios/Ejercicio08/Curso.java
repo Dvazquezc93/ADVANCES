@@ -1,16 +1,19 @@
 package ejercicios.Ejercicio08;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import ejercicios.Ejercicio04.Alumno;
 
 public class Curso {
 	protected Long identificador;
 	protected String descripcion;
-	private Alumno[] alumnos;
+	private List<Alumno> ArraAlumnos;
 
-	public Curso(Integer cantidadAlumnos) {
-		alumnos = new Alumno[cantidadAlumnos];
+	public Curso() {
+		 arraAlumnos = new ArrayList<>();
+		
 	}
 
 	public Long getIdentificador() {
