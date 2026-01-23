@@ -12,7 +12,37 @@
     <link rel="icon" href="imagen/favicon.ico">
     <base href="paginastema14/"target="_blank">
     <!--<base href="https://www.diariodesevilla.es/" target="_blank">-->
+    <style>
+      *{
+        box-sizing: border-box;
+      }
+      .left{
+        background-color: #2196f3;
+        padding: 20px;
+        float: left;
+        width: 20%;;
+      }
+      .main{
+        background-color: #f1f1f1;
+        padding: 20px;
+        float: left;
+        width: 60%;;
+      }
+      .right{
+        background-color: #04AA6D;
+        padding: 20px;
+        float: left;
+        width: 20%;
+      }
+      @media screen and (max-width: 800px) 
+      {
+        .left, .main, .right { 
+        width: 100%;
+      }
+      }
+    </style>
 </HEAD>
+
 <body>
   <!--  <a href="">Abrir diario de Sevilla</a>
     <hr>
@@ -29,5 +59,18 @@
     <p style="font-size: 12px;">Este parrafo esta en tamaño de 12 pixeles.</p>
     <h1 style="font-size: 10vw;">TEXTO RESPONSIVE EN VIEWPORT WIDTH</h1>
     <p style="font-size: 5vw;">Este párrafo está en responsive a 12 viewport width</p>
+    <h2>Media Queries</h2>
+    <p>Escala el ancho del navegador</p>
+    <p>Mira lo que pasa cuando se alcanza 800 px</p>
+    <hr>
+    <div class="left">
+      <p>PARTE IZQUIERDA</p>
+    </div>
+    <div class="main">
+      <p>Parte Central</p>
+    </div>
+    <div class="right">
+      <p>Parte Derecha</p>
+    </div>
 </body>
 </html>
