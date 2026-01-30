@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<HEAD>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Curso Html Tema 14">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Meta ,Responsive">
+    <meta name="author" content="Daniel Vázquez Chinchilla">
+    <title>Tema 16 html</title>
+    <link rel="icon" href="imagen/favicon.ico">
+    <link rel="stylesheet" href="estilos/estilostema16.css">
+
+    <head>
+
+    <body>
+        <h2> CAMPOS DE ENTRADA DE TEXTO</h2>
+        <from>
+            <label for="idNombre">Nombre:</label><br>
+            <input type="text" id="idNombre" name="idNombre"><br>
+            <label for="idApellidos">Apellidos:</label><br>
+            <input type="text" id="idApellidos" name="idApellidos">
+            <br><br>
+            <label>Selecciona tu especialidad;</label>
+            <br>
+            <input type="radio" id="idDAW" name="idCICLO" value="DAW">
+            <label for="idDAW">DAW</label><br>
+            <input type="radio" id="idDAM" name="idCICLO" value="DAM">
+            <label for="idDAM">DAM</label><br>
+            <input type="radio" id="idASIR" name="idCICLO" value="ASIR">
+            <label for="idASIR">ASIR</label>
+            <br><br>
+            <label>Selecciona las opciones que correspondan:</label>
+            <br>
+            <input type="checkbox" id="idCarmet" name="idCarnet" value="carnet">
+            <label for="idCarmet">Tengo carnet de conducir</label><br>
+            <input type="checkbox" id="idVehiculo" name="idVehiculo" value="vehiculo">
+            <label for="idVehiculo">Tengo vehículo propio</label><br>
+            <input type="checkbox" id="idIngles" name="idIngles" value="ingles">
+            <label for="idIngles">Domino el Inglés</label>
+        </from>
+        <br><br>
+        <h2>FORMULARIO DE ENVIO DE 2 CAMPOS</h2>
+        <FORM action="https://www.w3Schools.com/action_page.php" target="_blank">
+            <label for="idNombre">Nombre:</label><br>
+            <input type="text" id="idNombre" name="idNombre" value="Enviar"><br>
+            <label for="idApellidos">Apellidos :</label><br>
+            <input type="text" id="idApellido" name="idApellido" value="Enviar"><br><br>
+            <input type="Submit" value="Submit">
+        </FORM>
+        <br><br>
+        <FORM action="https://www.w3Schools.com/action_page.php"target="_blank">
+            <input type="radio" id="idDAW" name="idCICLO" value="DAW">
+            <label for="idDAW">DAW</label><br>
+            <input type="radio" id="idDAM" name="idCICLO" value="DAM">
+            <label for="idDAM">DAM</label><br>
+            <input type="radio" id="idASIR" name="idCICLO" value="ASIR">
+            <label for="idASIR">ASIR</label><br><br>
+            <input type="Submit" value="Submit">
+        </FORM>
+        <br><br>
+        <FORM action="https://www.w3Schools.com/action_page.php"target="_blank">
+        <label>Selecciona las opciones que correspondan:</label>
+        <br>
+        <input type="checkbox" id="idCarmet" name="idCarnet" value="carnet">
+        <label for="idCarmet">Tengo carnet de conducir</label><br>
+        <input type="checkbox" id="idVehiculo" name="idVehiculo" value="vehiculo">
+        <label for="idVehiculo">Tengo vehículo propio</label><br>
+        <input type="checkbox" id="idIngles" name="idIngles" value="ingles">
+        <label for="idIngles">Domino el Inglés</label><br><br>
+        <input type="Submit" value="Submit">
+    </from>
+    <br><br>
+    <h2>FORMULARIO CON CAMPO DE LISTA DESPLEGABLE</h2>
+    <FORM action="https://www.w3Schools.com/action_page.php"target="_blank">
+        <label FOR="idLista">Seleccione asignatura</label><br>
+        <select name="idLista" id="idLista">
+        <option value="lm">Lenguaje de Marcas</option>
+        <option value="pr">Programación</option>
+        <option value="so">Sistemas operativos</option>
+        <option value="en">Entornos</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Enviar">
+    </FORM>
+
+    </body>
