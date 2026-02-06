@@ -7,3 +7,31 @@ h2{
     color: #4d77ca;
     text-align: center;
 }
+textarea,button,.form-submit-button{
+    padding: 10px;
+    background-color: rgb(148, 139, 139);
+    color: white;
+    border-radius: 10px;
+    border: solid 5px rgb(87, 247, 82);
+}
+input[type="submit"]{
+    padding: 10px;
+    background-color: rgb(130, 26, 26);
+    color: white;
+    border-radius: 10px;
+    border: solid 5px rgb(116, 14, 154);
+}
+fieldset, legend{
+    padding: 10px;
+    background-color: rgb(28, 132, 163);
+    color: white;
+    border-radius: 10px;
+    border: solid 5px rgb(188, 184, 52);
+}
+input[type="text"], input[type="reset"]{
+    padding: 10px;
+    background-color: rgb(171, 20, 164);
+    color: white;
+    border-radius: 10px;
+    border: solid 5px rgb(210, 123, 10);
+}

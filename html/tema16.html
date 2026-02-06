@@ -74,15 +74,24 @@
     <br><br>
     <h2>FORMULARIO CON CAMPO DE LISTA DESPLEGABLE</h2>
     <FORM action="https://www.w3Schools.com/action_page.php"target="_blank">
-        <label FOR="idLista">Seleccione asignatura</label><br>
-        <select name="idLista" id="idLista">
+ <label FOR="idLista">Seleccione asignatura</label><br>
+<select name="idLista" id="idLista" size="7" multiple>
+    <optgroup label="Asignaturas de primero">       
         <option value="lm">Lenguaje de Marcas</option>
         <option value="pr">Programación</option>
         <option value="so">Sistemas operativos</option>
-        <option value="en">Entornos</option>
+        <option value="en" selected>Entornos</option>
+    </optgroup>
+    <optgroup LABEL="Asignaturas de segundo">
+        <option value="dm">Dispositivos móviles</option>
+         <option value="pr">Sistemas avanzados</option>
+        <option value="so">Sistemas operativos</option>
+        <option value="en" selected>Inglés</option>
+    </optgroup>
     </select>
     <br><br>
     <input type="submit" value="Enviar">
     </FORM>
+
 
     </body>
