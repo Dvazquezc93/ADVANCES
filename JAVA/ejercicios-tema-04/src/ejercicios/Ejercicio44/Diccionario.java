@@ -23,7 +23,7 @@ public class Diccionario {
 
 	public void cargarDiccionario(List<String> separaPalabras) {
 		for (Integer i = 0; i < separaPalabras.size(); i++) {
-			if (mapaDic.containsKey(separaPalabras.get(i).substring(0, 1))) {
+			if (mapaDic.containsKey(separaPalabras.get(i).substring(0, 1).toUpperCase())) {
 				mapaDic.get(separaPalabras.get(i).substring(0, 1).toUpperCase()).add(separaPalabras.get(i));
 			} else {
 				List<String> lista2 = new ArrayList<>();
@@ -37,12 +37,12 @@ public class Diccionario {
 		mapaDic.clear();
 	}
 
-	public String imprimirDiccionario(String letra) {
+	public String imprimirPalabras(String letra) {
 		String palabrasCompletas = "";
 		letra = letra.toUpperCase();
-		palabrasCompletas = "Hay " + mapaDic.get(letra).size() + "palabras que empiezan por " + letra + ":\n";
+		palabrasCompletas = "Hay " + mapaDic.get(letra).size() + " palabras que empiezan por " + letra + ":\n";
 		for (int i = 0; i < mapaDic.get(letra).size(); i++) {
-			palabrasCompletas += "\t>" + mapaDic.get(letra).get(i);
+			palabrasCompletas += "\t>" + mapaDic.get(letra).get(i)+"\n";
 		}
 		return palabrasCompletas;
 	}

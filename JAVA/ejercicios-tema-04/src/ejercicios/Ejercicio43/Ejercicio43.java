@@ -39,7 +39,7 @@ public class Ejercicio43 {
 				System.out.println("¡Gracias por jugar con nosotros! Bye");
 				return;
 			}
-			palabrasCompletas="Hay "+map.get(letra).size()+ "palabras que empiezan por "+letra+":\n";
+			palabrasCompletas="Hay "+map.get(letra).size()+ " palabras que empiezan por "+letra+":\n";
 			for (int i = 0; i < map.get(letra).size(); i++) {
 				palabrasCompletas+="\t>"+map.get(letra).get(i);
 			}
