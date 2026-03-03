@@ -39,7 +39,15 @@ public  class Libro {
 	public void setNumeroPaginas(Integer numeroPaginas) {
 		this.numeroPaginas = numeroPaginas;
 	}
+	
 	public Integer getPeso() {
 		return 0;
 	}
+
+	@Override
+	public String toString() {
+		return "Libro [titulo=" + titulo + ", autor=" + autor + ", fechaEdicion=" + fechaEdicion + ", numeroPaginas="
+				+ numeroPaginas + "]";
+	}
+	
 }

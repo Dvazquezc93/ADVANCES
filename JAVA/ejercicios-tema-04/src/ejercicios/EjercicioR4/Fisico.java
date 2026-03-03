@@ -18,6 +18,7 @@ public Integer getAlto() {
 public void setAlto(Integer alto) {
 	this.alto = alto;
 }
+@Override
 public Integer getPeso() {
 	return peso;
 }

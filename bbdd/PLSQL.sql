@@ -583,6 +583,42 @@ contador:=contador+1;
 end loop;
 end;
 /
+declare
+cursor misestudiantes is select * from estudiantes;
+contador int:=1;
+begin
+
+for i in misestudiantes loop 
+DBMS_OUTPUT.PUT_LINE(i.nombre||' '|| i.apellidos||' '||i.fecha_nacimiento);
+DBMS_OUTPUT.PUT_LINE('El estudiante: '||contador);
+contador:=contador+1;
+end loop;
+end;
+/
+declare
+minombre estudiantes.nombre%type:='&METEUNNOMBRE';
+cursor misestudiantes is select nombre, APELLIDOS from estudiantes where upper(nombre) = upper(minombre);
+contador int:=0;
+begin
+
+for i in misestudiantes loop 
+DBMS_OUTPUT.PUT_LINE(upper(i.apellidos || ', ' ||i.nombre));
+contador:= contador + 1;
+end loop;
+if contador=0 then
+DBMS_OUTPUT.PUT_LINE('No existe estudiante con ese dni.');
+end if;
+exception
+when too_many_rows then 
+DBMS_OUTPUT.PUT_LINE('Demasiados datos para ese dni.');
+end;
+/
+UNDEFINE METEUNNOMBRE;
+
+
+
+
+
 
 
 

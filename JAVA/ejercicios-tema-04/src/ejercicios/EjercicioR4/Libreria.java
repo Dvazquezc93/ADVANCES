@@ -42,6 +42,9 @@ public class Libreria {
 	}
 
 	public Libro obteberLibroMasAntiguo() {
+		if (listaLibros.isEmpty()) {
+			return null;
+		}
 		Libro libroAntiguo = new Libro();
 		libroAntiguo.setFechaEdicion(LocalDate.now());
 		for (Libro libro : listaLibros) {

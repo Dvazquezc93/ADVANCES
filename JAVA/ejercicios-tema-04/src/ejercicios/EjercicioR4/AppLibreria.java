@@ -37,6 +37,9 @@ public static void main(String[] args) {
 	li1.getListaLibros().add(f2);
 	li1.getListaLibros().add(l1);
 	li1.getListaLibros().add(l2);
+	System.out.println("El libro mas antiguo es: "+li1.obteberLibroMasAntiguo());
+	System.out.println("El peso total de los libros es: "+li1.ObtenerPesoTotalDeLibros());
+	System.out.println("El número de páginas medio es: "+li1.ObtenerNumPaginasMedio());
 	
 }
 }
