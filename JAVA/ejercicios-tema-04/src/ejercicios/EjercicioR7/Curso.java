@@ -60,12 +60,15 @@ public class Curso {
 			Period periodo =fechaInicio.until(fechaFin);
 			return periodo.getMonths()+(periodo.getYears()/12);
 		}
-		return null;
+		return 0;
 	}
 	public Boolean isPlazasLibres() {
-		return (plazasOcupadas<plazasTotales) && (plazasOcupadas>=0); 
+		return plazasOcupadas<plazasTotales; 
 	}
 	public BigDecimal getPrecioMes() {
+		if (getDuracionCurso()==0) {
+			return BigDecimal.ZERO;
+		}
 		return precio.divide(new BigDecimal(getDuracionCurso()),2, RoundingMode.HALF_EVEN); 
 	}
 }
