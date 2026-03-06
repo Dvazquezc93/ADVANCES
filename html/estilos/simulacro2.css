@@ -1,0 +1,48 @@
+header{
+    padding: 20PX;
+    background-color: rgb(14, 14, 120);
+    margin: 20PX;
+    color: white;
+    display: flex;
+    list-style: none;
+}
+body{
+    font-family: Arial, sans-serif;
+   
+
+}
+h2 {
+    color: #25354e; 
+}
+figcaption{
+    padding-left: 30px;
+    font-weight: bold;
+    color: aqua;
+}
+main,article{
+    margin: 20PX;
+}
+footer{
+    text-align: center;
+    margin: 20PX;
+    color: aqua;
+    background-color: #333;
+}
+nav{ 
+    float: left;
+    
+}
+
+nav a{
+    color: white ;
+    text-decoration: none;
+    
+}
+nav ul{
+    list-style: none;
+
+}
+nav ul li{
+    display: inline;
+    padding: 20px;
+}
