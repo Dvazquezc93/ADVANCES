@@ -170,7 +170,7 @@ cursor empleados is select * from  emp order by sal desc;
 contador int:=0;
 begin 
 for i in empleados loop
-DBMS_OUTPUT.PUT_LINE('Su empleado: '||i.ename||'Su salario: '|| i.sal);
+DBMS_OUTPUT.PUT_LINE('Su empleado: '||i.ename||' Su salario: '|| i.sal);
 contador:=contador+1;
 if contador=5 then
 exit;
@@ -200,3 +200,68 @@ BEGIN
     end loop;
 end;
 /
+--11. Escribir un procedimiento que suba el sueldo de todos los empleados que ganen menos 
+--que el salario medio de su oficio. La subida será del 50% de la diferencia entre el 
+--salario del empleado y la media de su oficio. Se deberá asegurar que la transacción no 
+--se quede a medias, y se gestionarán los posibles errores. 
+DECLARE
+cursor empleados is select * from emp where sal<(select avg(sal) from emp);
+media emp.SAL%TYPE;
+salariosubido emp.SAL%TYPE;
+BEGIN
+    select avg(sal) into media from emp;
+    for i in empleados loop
+update emp set sal=sal+((media-i.sal)/2) where empno =i.empno;
+select sal into salariosubido from emp where empno =i.empno;
+COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Su empleado cobraba '||i.sal||' y ahora cobra '||salariosubido);
+    end loop;
+end;
+/
+
+--12.Crear un procedimiento que inserte un empleado en la tabla EMP. Su número será el 
+--posterior al del empleado de mayor número y la fecha de incorporación a la empresa 
+--será la actual. Se le pondrá un salario igual al salario medio. El departamento será el 
+--de Sevilla, y el apellido se recibirá como parámetro. 
+DECLARE
+apellido emp.ENAME%TYPE:='&METEAPELLIDO';
+numeroempleado emp.EMPNO%TYPE;
+ salariomedio emp.SAL%TYPE;  
+ departamento emp.EMPNO%TYPE; 
+ 
+BEGIN
+    select max(empno) into numeroempleado from emp;
+    select AVG(sal) into salariomedio from emp;
+    insert into dept(deptno, dname,loc) values(50,'MEETING','Sevilla');
+    COMMIT;
+    select DEPTNO into departamento from dept where loc='Sevilla';
+    insert into emp(empno,ename,hiredate, sal,deptno) values(numeroempleado+1,apellido,sysdate,salariomedio, departamento);
+    COMMIT;
+end;
+/
+undefine METEAPELLIDO;
+select * from emp;
+select * from dept;
+DELETE from dept where DEPTNO =50;
+delete from emp where ENAME='CHINCHILLA';
+COMMIT;
+--13.Realizar un procedimiento para borrar un empleado recibiendo como parámetro el 
+--número de empleado. 
+DECLARE
+USUARIO EMP.EMPNO%TYPE:=&METEEMPNO;
+BEGIN
+DELETE FROM EMP WHERE EMP.EMPNO= usuario;
+COMMIT;
+DBMS_OUTPUT.PUT_LINE('');
+END;
+/
+UNDEFINE METEEMPNO;
+--A. SE QUIERE GUARDAR EN UNA TABLA TODOS LOS DATOS DE LOS EMPLEADOS QUE HAYAN SIDO CONTRATADOS EN EL MES QUE SE PASE POR TECLADO (NOMBRE DEL MES). 
+--DESPUÉS, RECORRE ESA TABLA MOSTRANDO EL ENAME.
+DECLARE
+MES VARCHAR2(50):='&METEMES';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('');
+END;
+/
+UNDEFINE METEMES;
