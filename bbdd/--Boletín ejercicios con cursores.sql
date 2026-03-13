@@ -260,8 +260,11 @@ UNDEFINE METEEMPNO;
 --DESPUÉS, RECORRE ESA TABLA MOSTRANDO EL ENAME.
 DECLARE
 MES VARCHAR2(50):='&METEMES';
+cursor ename is select * from emp where upper(trim(to_char(hiredate,'month','nls_date_languege=spanish')))= upper(MES);
 BEGIN
-    DBMS_OUTPUT.PUT_LINE('');
+    for i in ename loop
+    DBMS_OUTPUT.PUT_LINE('Su empleado es '||i.ename);
+    end loop;
 END;
 /
-UNDEFINE METEMES;
+UNDEFINE METEMES;                                                           
