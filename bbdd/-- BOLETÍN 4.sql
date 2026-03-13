@@ -32,3 +32,10 @@ select substr(nombre,1,3)
 -- 13. ¿Cuál es el nombre del equipo en el que juega el futbolista de menor peso?
 
 -- 14. Devuelve en una única columna la fase: El futbolista NOMBRE juega en el equipo NOMBRE, correspondiendo al campo nombre de futbolista y de equipo
+BEGIN
+FOR cur_rec IN (SELECT table_name FROM user_tables)
+LOOP
+EXECUTE IMMEDIATE 'DROP TABLE ' || cur_rec.table_name || ' CASCADE CONSTRAINTS';
+END LOOP;
+END;
+/
