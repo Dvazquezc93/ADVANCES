@@ -70,28 +70,30 @@ public class Geografia {
 		Integer contador = 0;
 		letraCapital = letraCapital.toUpperCase();
 		for (String pais : paises.keySet()) {
-			String letra = paises.get(pais).substring(0, 1).toUpperCase();
-			if (letra.equalsIgnoreCase(letraCapital)) {
+			
+			if (paises.get(pais).startsWith(letraCapital)) {
 				contador++;
 			}
 		}
 		return contador;
 	}
 
-	public String imprimirNumeroPaisesLetra(String letraCapital) {
+	public void imprimirNumeroPaisesLetra(String letraCapital) {
 		letraCapital = letraCapital.toUpperCase();
-		String imprimirPaises = "La letra " + letraCapital + " contiene:\n";
 		Boolean vacio = true;
 		for (String mapa : paises.keySet()) {
 			if (paises.get(mapa).startsWith(letraCapital)) {
-				imprimirPaises += "\tPAIS: \"" + mapa + "\" - CAPITAL: \"" + paises.get(mapa) + "\"\n";
+				if (vacio) {
+					System.out.println("La letra " + letraCapital + " contiene:\n");
+				}
+				 System.out.println("\tPAIS: \"" + mapa + "\" - CAPITAL: \"" + paises.get(mapa) + "\"\n");;
 				vacio = false;
 			}
 		}
 		if (vacio) {
-			return "Ninguna capital del mapa comienza por " + letraCapital + ".";
+			System.out.println("Ninguna capital del mapa comienza por " + letraCapital + ".");;
 		}
-		return imprimirPaises;
+		
 	}
 
 	public String mismaLetra() {

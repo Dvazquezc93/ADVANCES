@@ -47,7 +47,7 @@ public class Pais {
 		if (getClass() != obj.getClass())
 			return false;
 		Pais other = (Pais) obj;
-		return Objects.equals(codigo, other.codigo);
+		return Objects.equals(codigo.toUpperCase(), other.codigo.toUpperCase());
 	}
 
 }

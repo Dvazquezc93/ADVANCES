@@ -25,18 +25,33 @@ public class Ejerciciosr01 {
 				min1=not1;
 			}
 		}
-		
+		Boolean ext1=true;
 		System.out.println("La nota mayor de los alumnos es "+max1+" y la nota menor es "+min1);
 		Scanner skynnet =new Scanner(System.in);
 		System.out.println("¿Que nota buscas?");
 		Integer not2 = skynnet.nextInt();
-		for (Integer not1 : listaNotas) {
-			if (not2==not1) {
-				cont3++;
+		for (Integer i=0; i<listaNotas.length;i++) {
+			if (not2==listaNotas[i]) {
+				System.out.println("La nota buscada existe y está en la posición "+i);
+				ext1=false;
+				break;
 			}
+		}
+		if (ext1==true) {
+			System.out.println("La nota buscada no existe");
 			
 		}
-		System.out.println("Hay "+cont3+" alumnos con la nota "+not2);
+		System.out.println("¿Que nota buscas?");
+		Integer not3 = skynnet.nextInt();
+		for (Integer not1 : listaNotas) {
+			if (not1>not3) {
+				cont3++;
+			}
+		}
+		System.out.println("Hay "+cont3+ " notas mayores a la indicada");
 		skynnet.close();
-	}
+			
+		}
+		
 }
+

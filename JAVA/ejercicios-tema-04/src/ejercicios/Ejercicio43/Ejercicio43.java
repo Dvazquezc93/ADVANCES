@@ -37,9 +37,9 @@ public class Ejercicio43 {
 			letra =sc.nextLine().toUpperCase();
 			if (letra.contains("FIN")) {
 				System.out.println("¡Gracias por jugar con nosotros! Bye");
-				return;
+				break;
 			}
-			palabrasCompletas="Hay "+map.get(letra).size()+ " palabras que empiezan por "+letra+":\n";
+			palabrasCompletas="Hay "+map.get(letra).size()+ "palabras que empiezan por "+letra+":\n";
 			for (int i = 0; i < map.get(letra).size(); i++) {
 				palabrasCompletas+="\t>"+map.get(letra).get(i);
 			}
