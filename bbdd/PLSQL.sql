@@ -615,11 +615,123 @@ end;
 /
 UNDEFINE METEUNNOMBRE;
 
+--TERCERA EVALUACION
+--EXCEPCIONES
+declare
+numero1 int:=0;
+numero2 int:=0;
+begin
+numero2:=numero2/numero1;
+exception
+when others then
+    DBMS_OUTPUT.PUT_LINE('Su división da este error '|| SQLCODE || ' '|| SQLERRM);
 
+end;
+/
 
+declare
+numero1 int:=0;
+numero2 int:=0;
+begin
+numero2:=numero2/numero1;
+exception
+when ZERO_DIVIDE then
+    DBMS_OUTPUT.PUT_LINE('El divisor no puede ser cero ');
+end;
+/
 
+declare
+NO_ALUMNOS exception;
+numeroestudiantes int:=0;
+begin
+select count(*) into numeroestudiantes from estudiantes where codigo=20;
+if numeroestudiantes=0 then
+raise NO_ALUMNOS;
+ELSE
+DBMS_OUTPUT.PUT_LINE('Hay '||numeroestudiantes||' estudiantes.');
+end if;
+exception
+when NO_ALUMNOS THEN
+DBMS_OUTPUT.PUT_LINE('NO HAY ALUMNOS.');
+when others then
+DBMS_OUTPUT.PUT_LINE('El error es '|| SQLCODE|| ' '|| SQLERRM);
+end;
+/
 
+declare
+NO_ALUMNOS exception;
+MUCHOS_ALUMNOS exception;
+numeroestudiantes int:=0;
+begin
+select count(*) into numeroestudiantes from estudiantes ;
+if numeroestudiantes=0 then
+raise NO_ALUMNOS;
+ELSIF numeroestudiantes>=5 then
+raise MUCHOS_ALUMNOS;
+ELSE
+DBMS_OUTPUT.PUT_LINE('Hay '||numeroestudiantes||' estudiantes.');
+end if;
+exception
+when NO_ALUMNOS THEN
+DBMS_OUTPUT.PUT_LINE('NO HAY ALUMNOS.');
+when MUCHOS_ALUMNOS THEN
+DBMS_OUTPUT.PUT_LINE('TIENE QUE SER MENOS DE CINCO ALUMNOS');
+when others then
+DBMS_OUTPUT.PUT_LINE('El error es '|| SQLCODE|| ' '|| SQLERRM);
+end;
+/
+--PROCEDIMIENTO
+create or replace procedure nombredelprocedimiento (parametro1 in int)
+is
+begin
+for i in 0..parametro1 loop
+DBMS_OUTPUT.PUT_LINE('**');
+end loop;
+end nombredelprocedimiento;
+/
 
+begin
+nombredelprocedimiento(8);
+end;
+/
+create or replace procedure consultarempleado(v_empno in emp.empno%type, v_ename out emp.ENAME%type, v_job out emp.job%type)
+is begin
+select ename, job into v_ename, v_job from emp where empno = v_empno;
+exception
+when no_data_found then 
+DBMS_OUTPUT.PUT_LINE('NO SE HAN ENCONTRADO DATOS DE '||v_empno);
+end consultarempleado;
+/
+Declare
+empno emp.empno%type:=&METEEMPNO;
+nombre emp.ename%type;
+trabajo emp.job%type;
 
+begin
+consultarempleado(empno,nombre, trabajo);
+if nombre  is not null and trabajo is not null then
+DBMS_OUTPUT.PUT_LINE('EL NOMBRE DE SU TRABAJADOR ES '|| nombre ||' y su trabajo es '||trabajo);
+end if;
+end;
+/
+undefine METEEMPNO;
 
+create or replace procedure is_today (fecha out date)
+is
+begin
+select sysdate into fecha from dual;
+end is_today;
+/
+declare
+fecha date;
+begin
+is_today(fecha);
+DBMS_OUTPUT.PUT_LINE('La fecha de hoy es '|| fecha);
+end;
+/
 
+create or replace procedure is_today2 (fecha out date)
+is
+begin
+select sysdate into fecha from dual;
+end is_today;
