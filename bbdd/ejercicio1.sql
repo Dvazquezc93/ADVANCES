@@ -8,3 +8,8 @@ create table productos(
     Precio number(1,13)
 );
 alter table productos MODIFY precio number(3,1);
+create table videojuegos(
+    id int primary key,
+    nombre varchar2(50),
+    precio number(6,2)
+);
