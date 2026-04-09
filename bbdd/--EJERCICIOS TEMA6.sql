@@ -251,33 +251,159 @@ BEGIN
  begin
     MostrarAbreviaturas;
     end;
- 
+ --37. Realiza un procedimiento MostrarMasAntiguos que muestre el nombre del empleado más antiguo 
+ --de cada departamento junto con el nombre del departamento. Trata las excepciones que consideres necesarias.
+create or replace procedure MostrarMasAntiguos
+is
 
---38. Realiza un procedimiento MostrarJefes que reciba el nombre de un departamento y muestre los nombres de los empleados de ese departamento que son jefes de otros empleados.Trata las excepciones que consideres necesarias.
+begin
+for i in (select * from dept) loop
+for ie in (select * from emp where deptno=i.deptno and hiredate=(select min(hiredate) from emp where deptno=i.deptno )) loop
+DBMS_OUTPUT.PUT_LINE('EL empleado mas antiguo es '||ie.ename||' del departamento '||i.dname);
+end loop;
+end loop;
+end MostrarMasAntiguos;
+/
+declare
+ begin
+    MostrarMasAntiguos;
+    end;
+--38. Realiza un procedimiento MostrarJefes que reciba el nombre de un departamento y
+--muestre los nombres de los empleados de ese departamento que son jefes de otros empleados.Trata las excepciones que consideres necesarias.
 create or REPLACE procedure MostrarJefes(nombredepartamento dept.dname%type)
 IS
-cursor empleadodepartamento is select * from emp join DEPT on DEPT.DEPTNO =emp.EMPNO join emp J on J.EMPNO = emp.EMPNO where DEPT.DNAME = nombredepartamento and emp.MGR =j.EMPNO;
+
+CURSOR empleadodepartamento IS
+  SELECT DISTINCT e.ename
+  FROM emp e
+  JOIN dept d ON d.deptno = e.deptno
+  WHERE d.dname = nombredepartamento
+    AND e.empno IN (SELECT mgr FROM emp WHERE mgr IS NOT NULL);
+
 BEGIN
     for i in empleadodepartamento LOOP
-    DBMS_OUTPUT.PUT_LINE('');
+    DBMS_OUTPUT.PUT_LINE(i.ENAME);
     end loop;
 EXCEPTION
     when no_data_found THEN
     DBMS_OUTPUT.PUT_LINE('ESE DEPARTAMENTO NO EXISTE');
- end;
+ end MostrarJefes;
  /
 select * from emp;
- 
+select * from dept;
 
---39. Realiza un procedimiento MostrarMejoresVendedores que muestre los nombres de los dos vendedores con más comisiones. Trata las excepciones que consideres necesarias.
+DECLARE
+depto dept.dname%type:='&METEDEPTO';
+BEGIN
+MostrarJefes(upper(depto));
+end;
+/
+UNDEFINE METEDEPTO;
+--PROCEDIMIENTO QUE MUESTRE EL NOMBRE Y SALARIO DEL EMPLEADO CUYO CÓDIGO EMPNO SE PASE POR PARÁMETRO. CONTROLAR QUE EL EMPNO EXISTE
+--OPCIÓN 1 NO_DATA_FOUND, OPCIÓN 2 EXCEPCIÓN PERSONALIZADA
+create or replace procedure MostrarDatosEmpleados(codigoempno emp.empno%type)
+IS
+nombre emp.ename%type;
+salario emp.sal%type;
+begin
+select ename, sal into nombre, salario from emp where empno =codigoempno;
+DBMS_OUTPUT.PUT_LINE('El empleado con codigo '||codigoempno||' se llama '||nombre||' y su salario es '|| salario);
+exception
+when no_data_found then 
+DBMS_OUTPUT.PUT_LINE('No hay empleado en empno');
+end MostrarDatosEmpleados;
+/
 
+create or replace procedure MostrarDatosEmpleados(codigoempno emp.empno%type)
+IS
+cursor empleados is select * from emp where empno=codigoempno;
+contador int:=0;
+NO_EMP EXCEPTION;
+begin
+ for i in empleados LOOP
+   DBMS_OUTPUT.PUT_LINE('El empleado con codigo '||codigoempno||' se llama '||i.ename||' y su salario es '|| i.sal);
+   contador:=contador+1;
+    end loop;
+if contador=0 then
+raise NO_EMP;
+end if;
+exception
+when NO_EMP then 
+DBMS_OUTPUT.PUT_LINE('No hay empleado en empno');
+end MostrarDatosEmpleados;
+/
+
+DECLARE
+empno emp.empno%type:='&METEEMPNO';
+BEGIN
+MostrarDatosEmpleados(empno);
+end;
+/
+UNDEFINE METEEMPNO;
+
+
+--39. Realiza un procedimiento MostrarMejoresVendedores que muestre los nombres de los dos vendedores con más comisiones. 
+--Trata las excepciones que consideres necesarias.
+create or replace procedure MostrarMejoresVendedores 
+IS
+cursor vendedores is select * from emp where job = 'SALESMAN' order by comm;
+contador int:=0;
+BEGIN
+    for i in vendedores loop
+     contador:= contador+1;
+ DBMS_OUTPUT.PUT_LINE('El vendedor numero '||contador|| ' es '|| i.ename);
+ if contador =2 then 
+ exit;
+ end if;
+ end loop;
+ exception
+when no_data_found then 
+DBMS_OUTPUT.PUT_LINE('No hay Vendedores');
+ end MostrarMejoresVendedores;
+ /
+
+ DECLARE
+ BEGIN
+   MostrarMejoresVendedores;
+   end;
+   / 
  
 
  
 
 --40. Realiza un procedimiento MostrarsodaelpmE que reciba el nombre de un departamento al revés y muestre los nombres de los empleados de ese departamento. Trata las excepciones que consideres necesarias.
+create or replace procedure Mostrarsodaelpm(reves dept.dname%type)
+is
+derecho dept.dname%type;
+contador int:=0;
+contador2 int:=0;
+NO_EMP EXCEPTION;
+Begin
+contador:=length(reves);
+FOR i in 0 ..contador-1 loop
+derecho:= derecho||SUBSTR(reves,contador-i,1);
+end loop;
+DBMS_OUTPUT.PUT_LINE('EL DEPARTAMENTO '||upper(derecho));
+for i in (select * from emp join dept on dept.DEPTNO = emp.DEPTNO  where dept.dname =upper(derecho))loop
+    DBMS_OUTPUT.PUT_LINE('NOMBRE DEL EMPLEADO '||i.ename);
+    contador2:=contador2+1;
+end loop;
+if contador2 =0 THEN
+raise NO_EMP;
+end if;
+EXCEPTION
+when NO_EMP THEN
+DBMS_OUTPUT.PUT_LINE('EL DEPARMENTO '||upper(derecho)||' NO EXISTE');
+end Mostrarsodaelpm;
+/
 
- 
+
+ DECLARE
+ nombredept dept.DNAME%TYPE:='selas';
+ BEGIN
+   Mostrarsodaelpm(nombredept);
+   end;
+   / 
 
  
 
