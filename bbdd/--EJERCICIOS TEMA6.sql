@@ -407,11 +407,54 @@ end Mostrarsodaelpm;
 
  
 
---41. Realiza un procedimiento RecortarSueldos que recorte el sueldo un 20% a los empleados cuyo nombre empiece por la letra que recibe como parámetro.Trata las excepciones que consideres necesarias.
-
+--41. Realiza un procedimiento RecortarSueldos que recorte el sueldo un 20% a los empleados cuyo nombre empiece 
+--por la letra que recibe como parámetro.Trata las excepciones que consideres necesarias.
+create or replace procedure RecortarSuelos(letra emp.ename%type)
+is 
+cursor nemp  is select * from emp where ename like upper(letra) ||'%';
+salold emp.SAL%TYPE;
+contador int:=0;
+NO_EMP EXCEPTION;
+BEGIN
+for i in nemp LOOP
+update emp set sal =(sal/1.20) where empno = i.empno;
+select sal into salold from emp where empno = i.empno;
+DBMS_OUTPUT.PUT_LINE('El empleado '||i.ename|| ' cobraba '|| i.sal||' y ahora cobra '||salold);
+contador:=contador+1;
+end loop;
+if contador =0 THEN
+RAISE NO_EMP;
+end if;
+EXCEPTION
+when no_emp THEN
+DBMS_OUTPUT.PUT_LINE('NO HAY EMPLEADOS QUE EMPIECEN POR ESA LETRA');
+end RecortarSuelos;
+/
+DECLARE
+BEGIN
+RECORTARSUELOS('t');
+END;
  
 
  
 
 --42. Realiza un procedimiento BorrarBecarios que borre a los dos empleados más nuevos de cada departamento. Trata las excepciones que consideres necesarias.
-
+create or replace procedure BorrarBecarios
+is 
+cursor nuevos is select * from emp order by hiredate desc;
+contador int:=0;
+BEGIN
+for i in nuevos loop
+delete from emp where empno= i.empno;
+DBMS_OUTPUT.PUT_LINE('El empleado '||i.ename|| ' ha sido borrado');
+contador:=contador+1;
+if contador =2 then 
+exit;
+end if;
+end loop;
+ROLLBACK;
+end BorrarBecarios;
+/
+BEGIN
+    BorrarBecarios;
+end;

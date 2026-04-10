@@ -735,3 +735,43 @@ is
 begin
 select sysdate into fecha from dual;
 end is_today;
+--FUNCIONES
+create or replace function OBTENER_EMPNO(nombre emp.ename%type)
+return emp.empno%type
+is 
+codigoempno emp.empno%type; 
+begin
+SELECT EMPNO INTO codigoempno FROM EMP WHERE ENAME =NOMBRE;
+    return codigoempno;
+exception
+when no_data_found then
+DBMS_OUTPUT.PUT_LINE('NO HAY EMPNO PARA ESE NOMBRE');
+RETURN 0;
+when too_many_rows then
+DBMS_OUTPUT.PUT_LINE('HAY VARIOS EMPNO PARA ESE NOMBRE ');
+RETURN 0;
+end OBTENER_EMPNO;
+/
+DECLARE
+ NOMBRE EMP.ENAME%TYPE:='&METEENAME';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('SU NOMRE ES '||NOMBRE||' Y SU EMPNO ES '||OBTENER_EMPNO(NOMBRE));
+END;
+/
+UNDEFINE METEENAME;
+--EJERCICIO 6
+CREATE OR REPLACE FUNCTION NOMBREESTUDIANTE(COED estudiante.CODIGO%TYPE)
+RETURN estudiantes.nombre%TYPE;
+is
+nombree estudiantes.nombre%TYPE;
+apellidose estudiantes.apellidos%TYPE;
+begin
+select nombre, apellidos into nombree, apellidose from estudiantes where codigo=coed;
+return nombree||' '||apellidose;
+exception
+when no_data_found then
+RETURN 'NO HAY EMPNO PARA ESE NOMBRE';
+
+when too_many_rows then
+RETURN'HAY VARIOS EMPNO PARA ESE NOMBRE ';
+end NOMBREESTUDIANTE;

@@ -1,0 +1,24 @@
+{
+    "nombre": "PEPE",
+    "edad": 44,
+    "departamento": "Desarrollo",
+    "Disponibilidad": true,
+    "Asignaturas": [
+        {
+            "nombre": "Digitalizacion",
+            "codigo": 1234,
+            "creditos": 1,
+            "sesion": [
+                {
+                    "dia_semana": "Lunes",
+                    "hora_inicio": "18:20",
+                    "hora_fin": "21:00",
+                    "Aula": 4,
+                    "Modalidad": "Virtual",
+                    "proyector": true,
+                    "comentarios": null
+                }
+            ]
+        }
+    ]
+}

@@ -12,120 +12,170 @@
     <link rel="icon" href="imagen/favicon.ico">
     <link rel="stylesheet" href="estilos/estilostema19.css">
 </HEAD>
-<body>
-<h2>Ejemplo Canvas</h2>
-<canvas id="myCanvas" width="200" height="100" style="border: 1px solid #000000;"></canvas>
-<canvas id="myCanvasH" width="200" height="100" style="border: 1px solid #000000;"></canvas>
-<canvas id="myCanvas3" width="600" height="300" style="border: 1px solid #000000;"></canvas>
-<canvas id="myCanvas4" width="200" height="100" style="border: 1px solid #000000;"></canvas>
-<canvas id="myCanvas5" width="200" height="100" style="border: 1px solid #000000;"></canvas>
-<canvas id="myCanvas6" width="200" height="100" style="border: 1px solid #000000;"></canvas>
-<script>
-    var c =document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    ctx.beginPath();
-    ctx.strokeStyle = "blue";
-    ctx.lineWisth =5;
-    ctx.moveTo(0,0);
-    ctx.lineTo(200,100);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.strokeStyle = "green";
-    ctx.lineWisth =5;
-    ctx.arc(95,50,40,0,2*Math.PI);
-    ctx.stroke();
-    var c2 =document.getElementById("myCanvasH");
-    var ctx2 =c2.getContext("2d");
-    ctx2.font ="30px Arial";
-    ctx2.fillStyle = "red";
-    ctx2.fillText("Hello World",10,50);
-    ctx2.strokeStyle= "blue";
-    ctx2.linewidth =1;
-    ctx2.strokeText("Hello World",10,50);
-    var c3 =document.getElementById("myCanvas3");
-    var ctx3 =c3.getContext("2d");
-    ctx3.font ="bold 80px Arial";
-    ctx3.fillStyle = "green";
-    ctx3.fillText("Hello World",130,150);
-    ctx3.strokeStyle= "blue";
-    ctx3.linewidth =1;
-    ctx3.strokeText("Hello World",130,150);
-    var c4 =document.getElementById("myCanvas4");
-    var ctx4 =c4.getContext("2d");
-    var grd = ctx4.createLinearGradient(0,0,200,0);
-    grd.addColorStop(0,"red");
-    grd.addColorStop(1,"White");
-    ctx4.fillStyle=grd;
-    ctx4.fillRect(10,10,190,80);
-    var c5 = document.getElementById("myCanvas5");
-    var ctx5 =c5.getContext("2d");
-    var grd5 = ctx5.createRadialGradient(95,50,10,95,50,40);
-    grd5.addColorStop(0,"red");
-    grd5.addColorStop(1,"White");
-    ctx5.fillStyle=grd5;
-    ctx5.fillRect(10,10,190,80);
-    var c6 = document.getElementById("myCanvas6");
-    var ctx6 =c6.getContext("2d");
-    ctx6.fillStyle="red";
-    ctx6.fillRect(0,0,200,100);
-    var ctx7 =c6.getContext("2d");
-    ctx7.fillStyle="yellow";
-    ctx7.fillRect(0,25,200,50);
-    //1. empezar ancho 2. empezar largo 3. terminar ancho 4. terminar largo 
-    
-</script>
-<h2>Ejemplo Canvas2</h2>
-<canvas id="myCanvas" width="200" height="100" style="border: 1px solid #000000;"></canvas>
-<script>
-    var c =document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.lineWisth =5;
-    ctx.moveTo(200,0);
-    ctx.lineTo(0,100);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.strokeStyle = "green";
-    ctx.lineWisth =5;
-    ctx.arc(95,50,40,0,1*Math.PI);
-    ctx.stroke();
 
-</script>
-<h2>Ejemplo Canvas2</h2>
-<canvas id="myCanvasP" width="200" height="100" style="border: 1px solid #000000;"></canvas>
-<script>
-    var c =document.getElementById("myCanvasP");
-    var ctx = c.getContext("2d");
-    ctx.beginPath();
-    ctx.strokeStyle = "green";
-    ctx.lineWisth =5;
-    ctx.arc(95,20,10,0,2*Math.PI);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.lineWisth =5;
-    ctx.moveTo(85,30);
-    ctx.lineTo(105,30);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.lineWisth =5;
-    ctx.moveTo(105,30);
-    ctx.lineTo(105,90);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.lineWisth =5;
-    ctx.moveTo(105,90);
-    ctx.lineTo(85,90);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.lineWisth =5;
-    ctx.moveTo(85,90);
-    ctx.lineTo(85,30);
-    ctx.stroke();
-</script>
+<body>
+    <h2>Ejemplo Canvas</h2>
+    <canvas id="myCanvas" width="200" height="100" style="border: 1px solid #000000;"></canvas>
+    <canvas id="myCanvasH" width="200" height="100" style="border: 1px solid #000000;"></canvas>
+    <canvas id="myCanvas3" width="600" height="300" style="border: 1px solid #000000;"></canvas>
+    <canvas id="myCanvas4" width="200" height="100" style="border: 1px solid #000000;"></canvas>
+    <canvas id="myCanvas5" width="200" height="100" style="border: 1px solid #000000;"></canvas>
+    <canvas id="myCanvas6" width="200" height="100" style="border: 1px solid #000000;"></canvas>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.strokeStyle = "blue";
+        ctx.lineWisth = 5;
+        ctx.moveTo(0, 0);
+        ctx.lineTo(200, 100);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "green";
+        ctx.lineWisth = 5;
+        ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+        ctx.stroke();
+        var c2 = document.getElementById("myCanvasH");
+        var ctx2 = c2.getContext("2d");
+        ctx2.font = "30px Arial";
+        ctx2.fillStyle = "red";
+        ctx2.fillText("Hello World", 10, 50);
+        ctx2.strokeStyle = "blue";
+        ctx2.linewidth = 1;
+        ctx2.strokeText("Hello World", 10, 50);
+        var c3 = document.getElementById("myCanvas3");
+        var ctx3 = c3.getContext("2d");
+        ctx3.font = "bold 80px Arial";
+        ctx3.fillStyle = "green";
+        ctx3.fillText("Hello World", 130, 150);
+        ctx3.strokeStyle = "blue";
+        ctx3.linewidth = 1;
+        ctx3.strokeText("Hello World", 130, 150);
+        var c4 = document.getElementById("myCanvas4");
+        var ctx4 = c4.getContext("2d");
+        var grd = ctx4.createLinearGradient(0, 0, 200, 0);
+        grd.addColorStop(0, "red");
+        grd.addColorStop(1, "White");
+        ctx4.fillStyle = grd;
+        ctx4.fillRect(10, 10, 190, 80);
+        var c5 = document.getElementById("myCanvas5");
+        var ctx5 = c5.getContext("2d");
+        var grd5 = ctx5.createRadialGradient(95, 50, 10, 95, 50, 40);
+        grd5.addColorStop(0, "red");
+        grd5.addColorStop(1, "White");
+        ctx5.fillStyle = grd5;
+        ctx5.fillRect(10, 10, 190, 80);
+        var c6 = document.getElementById("myCanvas6");
+        var ctx6 = c6.getContext("2d");
+        ctx6.fillStyle = "red";
+        ctx6.fillRect(0, 0, 200, 100);
+        var ctx7 = c6.getContext("2d");
+        ctx7.fillStyle = "yellow";
+        ctx7.fillRect(0, 25, 200, 50);
+        //1. empezar ancho 2. empezar largo 3. terminar ancho 4. terminar largo 
+
+    </script>
+    <h2>Ejemplo Canvas2</h2>
+    <canvas id="myCanvas" width="200" height="100" style="border: 1px solid #000000;"></canvas>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.lineWisth = 5;
+        ctx.moveTo(200, 0);
+        ctx.lineTo(0, 100);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "green";
+        ctx.lineWisth = 5;
+        ctx.arc(95, 50, 40, 0, 1 * Math.PI);
+        ctx.stroke();
+
+    </script>
+    <h2>Ejemplo Canvas pilar</h2>
+    <canvas id="myCanvasP" width="400" height="400" style="border: 1px solid #000000;"></canvas>
+    <script>
+        var c = document.getElementById("myCanvasP");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.strokeStyle = "green";
+        ctx.lineWisth = 5;
+        ctx.arc(95, 20, 10, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.lineWisth = 5;
+        ctx.moveTo(85, 30);
+        ctx.lineTo(105, 30);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.lineWisth = 5;
+        ctx.moveTo(105, 30);
+        ctx.lineTo(105, 90);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.lineWisth = 5;
+        ctx.moveTo(105, 90);
+        ctx.lineTo(85, 90);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.lineWisth = 5;
+        ctx.moveTo(85, 90);
+        ctx.lineTo(85, 30);
+        ctx.stroke();
+    </script>
+    <h2>practica 1</h2>
+    <canvas id="myCanvasPractica" width="400" height="400" style="border: 1px solid #000000;"></canvas>
+    <script>
+        var c = document.getElementById("myCanvasPractica");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = '#e8e8e8';
+        ctx.fillRect(0, 0, 400, 400);
+        //fondo
+        ctx.beginPath();
+        ctx.fillStyle = '#222';
+        ctx.fillRect(148, 30, 104, 50);
+
+        ctx.fillRect(120, 68, 160, 18);
+        ctx.fillStyle = '#222';
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = '#F5CBA7';
+        ctx.arc(197, 185, 100, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = 'white';
+        ctx.ellipse(170, 160, 15,11,0, 0, 2 * Math.PI)
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = 'white';
+        ctx.ellipse(230, 160, 15, 11, 0, 0, 2 * Math.PI)
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = 'black';
+        ctx.arc(230, 160, 5, 0, 2 * Math.PI)
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = 'black';
+        ctx.arc(170, 160, 5, 0, 2 * Math.PI)
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = 'black';
+        ctx.moveTo(197, 197);
+        ctx.lineTo(205, 205);
+        
+
+
+    </script>
 </body>
+
 </html>
