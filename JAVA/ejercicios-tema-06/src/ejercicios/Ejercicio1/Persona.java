@@ -40,10 +40,17 @@ public class Persona {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
+	public void validar() throws DatosIncompletosException {
+		if (nombre == null || apellidos == null ||  nombre.length() > 50
+				|| apellidos.length() > 50 || dni.length() > 50 || fechaNacimiento.compareTo(LocalDate.now()) >= 0
+						|| nombre.isBlank() || apellidos.isBlank() || dni.isBlank()) {
+			throw new DatosIncompletosException("No ha introducido correctamente los datos de la persona.");
+		}
+	}
+
 	@Override
 	public String toString() {
 		return "Persona [nombre=" + nombre + ", dni=" + dni + ", apellidos=" + apellidos + ", fechaNacimiento="
 				+ fechaNacimiento + "]";
 	}
-
 }
