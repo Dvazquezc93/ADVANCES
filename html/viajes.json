@@ -1,0 +1,78 @@
+{
+    "viajes": [
+        {
+            "destino": "Sevila",
+            "Salidad": "2026/04/17",
+            "llegada": "2026/04/30",
+            "precio": 0.5,
+            "todoIncluido": true,
+            "Trasnporte": {
+                "tipo": "apata",
+                "compañia": "LR",
+                "duracionEstimado": "2H 30m",
+                "incluyeEquipaje": true
+            },
+            "guias": [
+                {
+                    "nombre": "PEPA",
+                    "idiomas": ["ingles","español"],
+                    "Experiencia": 4
+                },
+                {
+                    "nombre": "PEPON",
+                    "idiomas": ["frances","ruso"],
+                    "Experiencia": 8
+                }
+            ],
+            "actividades": [
+                {
+                    "nombre": "tapeo",
+                    "duracion": "6h",
+                    "descripcion": "Realizacion de rutas de bares por la ciudad"
+                },
+                {
+                    "nombre": "bici",
+                    "duracion": "4h",
+                    "descripcion": "Realizacion de rutas de ciclismo por la ciudad"
+                }
+            ]
+        },
+        {
+            "destino": "Cadiz",
+            "Salidad": "2026/04/17",
+            "llegada": "2026/04/30",
+            "precio": 0.5,
+            "todoIncluido": true,
+            "Trasnporte": {
+                "tipo": "apata",
+                "compañia": "LR",
+                "duracionEstimado": "2H 30m",
+                "incluyeEquipaje": true
+            },
+            "guias": [
+                {
+                    "nombre": "PEPA",
+                    "idiomas": ["ingles","español"],
+                    "Experiencia": 4
+                },
+                {
+                    "nombre": "PEPON",
+                    "idiomas": ["frances","ruso"],
+                    "Experiencia": 8
+                }
+            ],
+            "actividades": [
+                {
+                    "nombre": "tapeo",
+                    "duracion": "6h",
+                    "descripcion": "Realizacion de rutas de bares por la ciudad"
+                },
+                {
+                    "nombre": "bici",
+                    "duracion": "4h",
+                    "descripcion": "Realizacion de rutas de ciclismo por la ciudad"
+                }
+            ]
+        }
+    ]
+}
