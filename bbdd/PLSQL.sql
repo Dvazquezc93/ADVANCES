@@ -760,8 +760,8 @@ END;
 /
 UNDEFINE METEENAME;
 --EJERCICIO 6
-CREATE OR REPLACE FUNCTION NOMBREESTUDIANTE(COED estudiante.CODIGO%TYPE)
-RETURN estudiantes.nombre%TYPE;
+CREATE OR REPLACE FUNCTION NOMBREESTUDIANTE(COED estudiantes.CODIGO%TYPE)
+RETURN estudiantes.nombre%TYPE
 is
 nombree estudiantes.nombre%TYPE;
 apellidose estudiantes.apellidos%TYPE;
@@ -775,3 +775,130 @@ RETURN 'NO HAY EMPNO PARA ESE NOMBRE';
 when too_many_rows then
 RETURN'HAY VARIOS EMPNO PARA ESE NOMBRE ';
 end NOMBREESTUDIANTE;
+/
+begin
+DBMS_OUTPUT.PUT_LINE(NOMBREESTUDIANTE(1));
+end;
+/
+--EJERCICIO 7
+create or replace function totalEstudiantes
+return int
+is
+contador int:=0;
+Begin
+select count(*) into contador from estudiantes;
+return contador;
+end;
+/
+begin
+DBMS_OUTPUT.PUT_LINE('El numero total de estudiantes es '||totalEstudiantes);
+end;
+/
+--paquetes
+--06.PAQUETES.PDF
+CREATE OR REPLACE PACKAGE EMPLEADOS
+IS
+    FUNCTION BORRAR_EMPLEADO (CODIGO_EMP EMP.EMPNO%TYPE) RETURN BOOLEAN;
+    FUNCTION CALCULARCOSTESALARIAL (DEPARTAMENTO DEPT.DNAME%TYPE) RETURN INT;
+END;
+/
+CREATE OR REPLACE PACKAGE BODY EMPLEADOS
+IS
+    --FUNCIÓN BORRAR_EMPLEADO
+    FUNCTION BORRAR_EMPLEADO (CODIGO_EMP EMP.EMPNO%TYPE)
+    RETURN BOOLEAN
+    IS
+        NOMBRE_EMP EMP.ENAME%TYPE;
+    BEGIN
+        SELECT ENAME INTO NOMBRE_EMP FROM EMP WHERE EMPNO = CODIGO_EMP;
+        DELETE FROM EMP WHERE EMPNO = CODIGO_EMP;
+        RETURN TRUE;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('No se ha podido borrar, el valor no existe en la base de datos');
+            RETURN FALSE;
+    END;
+
+    --FUNCIÓN CALCULARCOSTESALARIAL
+    FUNCTION CALCULARCOSTESALARIAL (DEPARTAMENTO DEPT.DNAME%TYPE)
+    RETURN INT
+    IS
+        CODIGO DEPT.DEPTNO%TYPE;
+        SUMA_TOTAL INT := 0;
+    BEGIN
+        SELECT DEPTNO INTO CODIGO FROM DEPT WHERE DNAME = DEPARTAMENTO;
+        FOR I IN (SELECT * FROM EMP WHERE DEPTNO = CODIGO) LOOP
+            SUMA_TOTAL := SUMA_TOTAL + I.SAL;
+            IF I.COMM IS NOT NULL THEN
+                SUMA_TOTAL := SUMA_TOTAL + I.COMM;
+            END IF;
+        END LOOP;
+        RETURN SUMA_TOTAL;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('NO EXISTE ESE DEPARTAMENTO');
+            RETURN NULL;
+    END;
+END;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(EMPLEADOS.CALCULARCOSTESALARIAL('ACCOUNTING'));
+END;
+/
+--Ejercicio 1
+CREATE OR REPLACE PACKAGE OPERACIONES
+IS
+    FUNCTION SUMA (numero1 int, numero2 int) RETURN INT;
+    FUNCTION RESTA (numero1 int, numero2 int) RETURN INT;
+    FUNCTION positivo (numero1 int) RETURN BOOLEAN;
+END;
+/
+CREATE OR REPLACE PACKAGE body OPERACIONES
+IS
+    FUNCTION SUMA (numero1 int, numero2 int) RETURN INT 
+    is begin
+    return numero1+numero2;
+    end suma;
+    FUNCTION RESTA (numero1 int, numero2 int) RETURN INT
+    is begin
+    return numero1-numero2;
+    end RESTA;
+    FUNCTION positivo (numero1 int) RETURN BOOLEAN
+    is begin
+    return numero1>0;
+    end positivo;
+END;
+/
+Begin
+DBMS_OUTPUT.put_line('Su suma es '||operaciones.suma(7999,1));
+DBMS_OUTPUT.put_line('Su resta es '||operaciones.resta(9001,1));
+if operaciones.positivo(operaciones.suma(7999,1)) then
+DBMS_OUTPUT.put_line('Su numero es positivo');
+else
+DBMS_OUTPUT.put_line('Su numero es negativo');
+end if;
+end;
+/
+--ejercicio 2
+Create or replace PACKAGE gestionEMP
+is
+procedure nuevoEmpleado(miempno emp.empno%type, miename emp.ename%type, mijob emp.job%type,
+mimgr emp.mgr%type, mihiredate emp.hiredate%type, misal emp.sal%type, micomm emp.comm%type, mideptno emp.deptno%type);
+end gestionEMP;
+/
+Create or replace PACKAGE BODY gestionEMP
+is 
+    procedure nuevoEmpleado(miempno emp.empno%type, miename emp.ename%type, mijob emp.job%type,
+    mimgr emp.mgr%type, mihiredate emp.hiredate%type, misal emp.sal%type, micomm emp.comm%type, mideptno emp.deptno%type)
+    is begin
+    insert into emp values(miempno, miename,mijob,mimgr,mihiredate,misal,micomm,mideptno);
+    commit;
+    DBMS_OUTPUT.put_line('Ha sido registrado correctamente');
+end nuevoEmpleado;
+
+end gestionEMP;
+/
+Begin
+GestionEMP.nuevoEmpleado(8000,'JUAN','CLERK',7902,'01/05/22',1500,NULL,20);
+end;
+/

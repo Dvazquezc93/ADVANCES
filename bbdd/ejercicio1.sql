@@ -84,3 +84,5 @@ INSERT INTO MATRICULAS VALUES (5,7,10);
 INSERT INTO MATRICULAS VALUES (5,9,6);
 
 commit;
+Update personas set fecha_nacimiento ='26/02/95' where dni ='77884422F';
+select * from personas;

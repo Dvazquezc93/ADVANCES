@@ -106,8 +106,9 @@ UNDEFINE METEDNI;
 --7. 
 --Realiza una función a la que se le pase por parámetro un valor de empno de la tabla EMP, y devuelva los campos nombre y salario.
 --En el supuesto de que no haya encontrado ningún empno en la tabla EMP con dicho valor, que llame a una excepción que muestre por pantalla "Valor no existe en la base de datos".
-DECLARE
-MIEMPNO EMP.EMPNO%TYPE:=&METEEMPNO;
+create or replace function VERSALARIO(MIEMPNO EMP.EMPNO%TYPE)
+return VARCHAR2
+is
 MINOMBRE EMP.ENAME%TYPE;
 MISALARIO EMP.SAL%TYPE;
 EXISTE INT:=0;
@@ -115,35 +116,49 @@ BEGIN
     SELECT COUNT(*) INTO EXISTE FROM EMP WHERE EMPNO =MIEMPNO;
     SELECT ENAME, SAL INTO MINOMBRE, MISALARIO FROM EMP WHERE EMPNO=MIEMPNO;
     IF EXISTE =1 THEN
-    DBMS_OUTPUT.PUT_LINE(MINOMBRE|| ' '|| MISALARIO);
+    RETURN 'El nombre del empleado es '|| MINOMBRE|| ' y su salario es '|| MISALARIO;
     ELSE
-    DBMS_OUTPUT.PUT_LINE('EL EMPNO NO ES CORRECTO');
+    RAISE EMPNO_NOEXISTE;
     END IF;
-END;
+    EXCEPTION
+    WHEN no_data_found THEN
+    return'EL EMPNO NO EXISTE';
+END VERSALARIO;
 /
-UNDEFINE METEEMPNO;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(VERSALARIO(7839));
+end;
+/
 
 --8. 
 --Realiza una función a la que se le pase por parámetro un valor de empno de la tabla EMP, y si existe, que borre el registro completo.
 --En el supuesto de que no haya encontrado ningún empno en la tabla EMP con dicho valor, que llame a una excepción que muestre por pantalla "No se ha podido borrar, el valor no existe en la base de datos".
-DECLARE
-MIEMPNO EMP.EMPNO%TYPE:= &METEEMPNO;
+create or replace function DELETEAR(MIEMPNO EMP.EMPNO%TYPE)
+return VARCHAR2
+is
 MINOMBRE EMP.ENAME%TYPE;
 MISALARIO EMP.SAL%TYPE;
 EXISTE INT:=0;
+EMPNO_NOEXISTE EXCEPTION;
 BEGIN
     SELECT COUNT(*) INTO EXISTE FROM EMP WHERE EMPNO =MIEMPNO;
-    
-    IF EXISTE =1 THEN
+    IF (EXISTE = 1) THEN
     DELETE FROM EMP WHERE EMPNO=MIEMPNO;
     COMMIT;
-    DBMS_OUTPUT.PUT_LINE('SU EMPNO HA SIDO DELETEADO');
-    ELSE
-    DBMS_OUTPUT.PUT_LINE('No se ha podido borrar, el valor no existe en la base de datos');
-    END IF;
-END;
+    return'SU EMPNO HA SIDO DELETEADO';
+    else
+    RAISE EMPNO_NOEXISTE;
+    end if;
+ exception
+ when EMPNO_NOEXISTE then
+   return'No se ha podido borrar, el valor no existe en la base de datos'; 
+END DELETEAR;
 /
-UNDEFINE METEEMPNO;
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(DELETEAR(1));
+end;
+
 --9. 
 --Realiza un procedimiento que muestre por pantalla el nombre de todos los departamentos de la tabla DEPT.
 create or replace PROCEDURE nombredepart 
@@ -161,6 +176,51 @@ BEGIN
     nombredepart;
 end;
 /
+--10.Realiza una función que devuelva el número total de empleados de la tabla EMP.Si el número total es mayor de 5, crea una excepción que muestre el mensaje "hay más de 5 empleados".
+create or replace function numeroTotalEmp
+return NUMBER
+is
+contador int:=0;
+MUCHOS_EMP EXCEPTION;
+begin
+select count(*) into contador from emp;
+if contador>5 then 
+raise MUCHOS_EMP;
+else
+return contador;
+end if;
+exception
+when MUCHOS_EMP then
+DBMS_OUTPUT.PUT_LINE('hay más de 5 empleados');
+return null;
+end numeroTotalEmp;
+/
+Begin
+DBMS_OUTPUT.PUT_LINE(numeroTotalEmp);
+end;
+/
+--18. Hacer una función obtenerNombreEmp que dado por parámetro un empno te devuelva el ename.
+create or replace function obtenerNombreEmp(MIEMPNO EMP.EMPNO%TYPE)
+return emp.ename%TYPE
+is
+miename emp.ename%TYPE;
+ename_null EXCEPTION;
+BEGIN
+    select ename into miename from emp where EMPNO = MIEMPNO;
+    if length(miename)>0 then
+    return 'El nombre de su empleado es '||miename;
+    ELSE
+    raise ename_null;
+    end if;
+    exception
+    when ename_null THEN
+    return 'Su empleado no existe';
+    end obtenerNombreEmp;
+    /
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE(obtenerNombreEmp(7839));
+    end;
+    /
 --19. Hacer un procedimiento mostrarDatosEmp que reciba por parámetro un empno y muestre por pantalla el nombre del empleado y el nombre de su jefe. Utiliza la función obtenerNombreEmp.
 create or REPLACE PROCEDURE mostrarDatosEmp(numeroempleado emp.empno%type)
 IS
@@ -183,7 +243,31 @@ select * from emp;
     mostrarDatosEmp(7839);
     end;
     /
+--32. Haz una función llamada DevolverCodDept que reciba el nombre de un departamento y devuelva su código.
+create or replace function DevolverCodDept(MIDNAME dept.dname%type)
+return dept.deptno%TYPE
+is
+MIDEPTNO dept.deptno%TYPE;
+MIDEPTNO_NULL EXCEPTION;
 
+BEGIN
+    select deptno into MIDEPTNO from DEPT where upper(dname) =upper(MIDNAME);
+    if MIDEPTNO>0  THEN
+    RETURN MIDEPTNO;
+    ELSE
+    raise MIDEPTNO_NULL;
+    end if;
+    EXCEPTION
+    when MIDEPTNO_NULL THEN
+    DBMS_OUTPUT.PUT_LINE('ESE NOMBRE NO EXISTE');
+    RETURN null;
+    end DevolverCodDept;
+    /
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(DevolverCodDept('sales'));
+    end;
+    /
+select * from DEPT;
 --33. Realiza un procedimiento llamado HallarNumEmp que recibiendo un nombre de departamento, muestre en pantalla el número de empleados de dicho departamento. Puedes utilizar la función creada en el ejercicio 32. Si el departamento no tiene empleados deberá mostrar un mensaje informando de ello. Si el departamento no existe se tratará la excepción correspondiente.
 create or REPLACE procedure HallarNumEmp (nombredepartamento dept.dname%type)
 IS
@@ -211,7 +295,27 @@ DBMS_OUTPUT.PUT_LINE('El departamento no existe');
     /
 
  select * from dept;
-
+--34.Realiza una función llamada CalcularCosteSalarial que reciba un nombre de departamento y devuelva la suma de los salarios y comisiones de los empleados de dicho departamento. Trata las excepciones que consideres necesarias.
+create or replace function CalcularCosteSalarial(nombredepartamento dept.dname%type)
+return emp.sal%TYPE
+is
+ cursor miemp is select * from emp join dept on dept.DEPTNO=emp.DEPTNO where upper(dept.DNAME)= upper(nombredepartamento);
+ salarios emp.SAL%TYPE:=0;
+Begin
+for i in miemp LOOP
+salarios:= Salarios+ i.sal;
+if i.comm is not null THEN
+salarios:= Salarios+ i.comm;
+end if;
+end loop;
+return salarios;
+end;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('El salario total del departamento es '||CalcularCosteSalarial('sales'));
+    DBMS_OUTPUT.PUT_LINE('El salario total del departamento es '||CalcularCosteSalarial('RESEARCH'));
+    end;
+    /
 --35. Realiza un procedimiento MostrarCostesSalariales que muestre los nombres de todos los departamentos y el coste salarial de cada uno de ellos.
 create or REPLACE procedure  MostrarCostesSalariales
 IS
