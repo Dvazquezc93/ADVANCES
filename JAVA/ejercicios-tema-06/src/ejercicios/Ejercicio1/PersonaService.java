@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import oracle.sql.DATE;
+
 public class PersonaService {
 	private Connection openConnection() throws SQLException {
 		String user = "programacion";
@@ -66,7 +68,7 @@ public class PersonaService {
 			statement.setString(1, filtro);
 			statement.setString(2, filtro);
 			List<Persona> lista = new ArrayList<>();
-		
+
 			// 5. Ejecutar
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
@@ -88,24 +90,173 @@ public class PersonaService {
 		}
 
 	}
-	public void insertarPersonas(String dni, String nombre, String apellidos, LocalDate fechaNacimiento) throws  PersonaException {
+
+	public void insertarPersona(Persona persona) throws PersonaException {
 		System.out.println("Insertando persona...");
 		try (Connection con = openConnection()) {
 			// 2. Escribir SQL
-			String sql = "insert into personas values(?,?,?,?)";
+			añadirPersona(persona, con);
+			System.out.println("Persona insertada.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersonaException("Error al insertar persona en BBDD", e);
+		}
+
+	}
+
+	private void añadirPersona(Persona persona, Connection con) throws SQLException {
+		String sql = "insert into personas values(?,?,?,?)";
+		// 3. Crear PreparedStatement
+		PreparedStatement statement = con.prepareStatement(sql);
+		// 4. Dar Valores a los parámetros
+		statement.setString(1, persona.getDni());
+		statement.setString(2, persona.getNombre());
+		statement.setString(3, persona.getApellidos());
+		statement.setDate(4, Date.valueOf(persona.getFechaNacimiento()));
+
+		statement.execute();
+	}
+
+	public void actualizarPersonas(Persona persona) throws PersonaException, PersonaNotFoundException {
+		System.out.println("actulizando persona...");
+		try (Connection con = openConnection()) {
+			// 2. Escribir SQL
+			String sql = "update personas set nombre=?, apellidos=?,fecha_Nacimiento =? where dni=? ";
+			// 3. Crear PreparedStatement
+			PreparedStatement statement = con.prepareStatement(sql);
+			// 4. Dar Valores a los parámetros
+			statement.setString(4, persona.getDni());
+			statement.setString(1, persona.getNombre());
+			statement.setString(2, persona.getApellidos());
+			statement.setDate(3, Date.valueOf(persona.getFechaNacimiento()));
+
+			Boolean up = statement.executeUpdate() > 0;
+			if (!up) {
+				throw new PersonaNotFoundException("Esas persona no esta dentro de la base de datos");
+
+			}
+			System.out.println("Persona actualizada");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersonaException("Error al actualizar persona en BBDD", e);
+		}
+
+	}
+
+	public void borrarPersonas(String dni) throws PersonaException, PersonaNotFoundException {
+		System.out.println("borrando persona...");
+		try (Connection con = openConnection()) {
+			// 2. Escribir SQL
+			String sql = "delete from personas where dni =? ";
 			// 3. Crear PreparedStatement
 			PreparedStatement statement = con.prepareStatement(sql);
 			// 4. Dar Valores a los parámetros
 			statement.setString(1, dni);
-			statement.setString(2, nombre);
-			statement.setString(3,apellidos);
-			statement.setDate(4, Date.valueOf(fechaNacimiento));
-	
-			 statement.execute();
-			 System.out.println("Persona insertada...");
+			Boolean up = statement.executeUpdate() > 0;
+			if (!up) {
+				throw new PersonaNotFoundException("Esas persona no esta dentro de la base de datos");
+
+			}
+			System.out.println("Persona deleteada.");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersonaException("Error al consultar persona en BBDD", e);
+			throw new PersonaException("Error al deletear persona en BBDD", e);
+		}
+
+	}
+
+	public void borrarPersonas(String dni,Connection con) throws PersonaException, PersonaNotFoundException {
+		System.out.println("borrando persona...");
+		try{
+		  con = openConnection();
+				  
+			// 2. Escribir SQL
+			String sql = "delete from personas where dni =? ";
+			// 3. Crear PreparedStatement
+			PreparedStatement statement = con.prepareStatement(sql);
+			// 4. Dar Valores a los parámetros
+			statement.setString(1, dni);
+			Boolean up = statement.executeUpdate() > 0;
+			if (!up) {
+				throw new PersonaNotFoundException("Esas persona no esta dentro de la base de datos");
+
+			}
+			System.out.println("Persona deleteada.");
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersonaException("Error al deletear persona en BBDD", e);
+		}
+		
+	}
+
+	public void insertarPersonas(List<Persona> lista) throws PersonaException {
+		System.out.println("Insertando personas...");
+		try (Connection con = openConnection()) {
+			try {
+				con.setAutoCommit(false);
+				for (Persona persona : lista) {
+					añadirPersona(persona, con);
+				}
+				con.commit();
+				System.out.println("Personas insertadas.");
+			} catch (SQLException e) {
+				con.rollback();
+				throw new PersonaException("Error al insertar las personas", e);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersonaException("Error al insertar persona en BBDD", e);
+		}
+
+	}
+
+	public Integer borrarPersonasA() throws PersonaException, PersonaNotFoundException {
+		Integer contador = 0;
+		try (Connection con = openConnection()) {
+			// 2. Escribir SQL
+
+			List<Persona> lista = buscarPersonas("");
+			try {
+				con.setAutoCommit(false);
+				for (Persona persona : lista) {
+					if (persona.getFechaNacimiento().compareTo(LocalDate.now().minusYears(18)) < 0) {
+						borrarPersonas(persona.getDni(), con);
+						contador++;
+					}
+				}
+				con.commit();
+			} catch (SQLException e) {
+				con.rollback();
+				throw new PersonaException("Error al deletar las personas", e);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersonaException("Error al deletear persona en BBDD", e);
+		}
+		return contador;
+	}
+	public void borrarPersonasM() throws PersonaException, PersonaNotFoundException {
+		System.out.println("borrando persona...");
+		try (Connection con = openConnection()) {
+			// 2. Escribir SQL
+			
+			String sql = "delete from personas where fecha_nacimiento <? ";
+			// 3. Crear PreparedStatement
+			PreparedStatement statement = con.prepareStatement(sql);
+			// 4. Dar Valores a los parámetros
+			statement.setDate(1, Date.valueOf(LocalDate.now().minusYears(18)));
+			Boolean up = statement.executeUpdate() > 0;
+			if (!up) {
+				throw new PersonaNotFoundException("Esas persona no esta dentro de la base de datos");
+
+			}
+			System.out.println("Persona deleteada.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersonaException("Error al deletear persona en BBDD", e);
 		}
 
 	}
