@@ -1,11 +1,6 @@
-package ejercicios.EjercicioFinalR1;
+package ejercicios.ejercicioR1;
 
 public class ProductoNotFoundException extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7778322140110186471L;
 
 	public ProductoNotFoundException() {
 	}

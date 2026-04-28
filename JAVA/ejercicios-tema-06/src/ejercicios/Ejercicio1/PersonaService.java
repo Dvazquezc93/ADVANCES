@@ -230,6 +230,7 @@ public class PersonaService {
 			} catch (SQLException e) {
 				con.rollback();
 				throw new PersonaException("Error al deletar las personas", e);
+				
 			}
 
 		} catch (SQLException e) {
@@ -243,7 +244,7 @@ public class PersonaService {
 		try (Connection con = openConnection()) {
 			// 2. Escribir SQL
 			
-			String sql = "delete from personas where fecha_nacimiento <? ";
+			String sql = "delete from personas where fecha_nacimiento <=? ";
 			// 3. Crear PreparedStatement
 			PreparedStatement statement = con.prepareStatement(sql);
 			// 4. Dar Valores a los parámetros

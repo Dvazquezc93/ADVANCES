@@ -1,11 +1,6 @@
-package ejercicios.EjercicioFinalR1;
+package ejercicios.ejercicioR1;
 
 public class ProductoException extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7038329715513021707L;
 
 	public ProductoException() {
 	}
