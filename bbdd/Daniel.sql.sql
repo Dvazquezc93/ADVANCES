@@ -56,7 +56,7 @@ select DISTINCT substr(email,1,(instr(email,'@',1)-1))"DOMINIO DEL EMAIL"  from 
 --2.12
 select referencia, descripcion,fecha_inicio"FECHA" from proyectos where upper(trim(to_char(fecha_inicio,'MONTH','NLS_LANGUAGE =SPANISH')))='FEBRERO'; 
 --2.13
-select upper(id),upper(anyos),upper(lenguaje) from ESPECIALIDADES where LENGUAJE like 'Ja%';
+select id, anyos, upper(lenguaje) from ESPECIALIDADES where LENGUAJE like 'Ja%';
 --2.14
 select lower(metodologias.tipo),count(*) from PROYECTOS join METODOLOGIAS on METODOLOGIAS.ID =PROYECTOS.ID_METODOLOGIA 
 group by metodologias.tipo having count(*)= (select max(count(*))from PROYECTOS join METODOLOGIAS on METODOLOGIAS.ID = PROYECTOS.ID_METODOLOGIA 
