@@ -36,19 +36,25 @@ BEGIN
 
 --# Ejercicio 3Hay que usar la tabla estudiantes. Muestra por la salida el día (número) de nacimiento de aquellos estudiantes cuyos apellidos (campo apellidos) tengan 5 o más vocales.
 
-# Ejercicio 4
+--# Ejercicio 4
 
-1. Crea una función obtenerNumMes que reciba como parámetro de entrada el nombre de un mes (ej.: SEPTIEMBRE, ENERO, JUNIO, etc.) y devuelva el número que corresponda a ese mes (09, 01, 06, etc.).
+--1. Crea una función obtenerNumMes que reciba como parámetro de entrada el nombre de un mes (ej.: SEPTIEMBRE, ENERO, JUNIO, etc.) y devuelva el número que corresponda a ese mes (09, 01, 06, etc.).
+function obtenerNumMes(mes VARCHAR2(50)) 
+return int
+is
+begin
+DBMS_OUTPUT.put_line('')
+end;
+/
+--2. Crea una función obtenerSalEmpMes que reciba como parámetro de entrada el número de un mes y devuelva la suma total de los salarios de los empleados que fueron contratados en ese mes pasado como parámetro.
 
-2. Crea una función obtenerSalEmpMes que reciba como parámetro de entrada el número de un mes y devuelva la suma total de los salarios de los empleados que fueron contratados en ese mes pasado como parámetro.
+--3. Crea un paquete llamado libreriaEmp que contenga las funciones obtenerNumMes y obtenerSalEmpMes.
 
-3. Crea un paquete llamado libreriaEmp que contenga las funciones obtenerNumMes y obtenerSalEmpMes.
+--4. Crea un procedimiento mostrarSumSalEmpMes que reciba por parámetro un mes con letras (ej.: SEPTIEMBRE, ENERO, JUNIO, etc.) y muestre por la pantalla la suma total de los salarios de los empleados que fueron contratados en ese mes. Para ello debes usar el paquete libreriaEmp y las dos funciones que contiene dentro de la librería.
 
-4. Crea un procedimiento mostrarSumSalEmpMes que reciba por parámetro un mes con letras (ej.: SEPTIEMBRE, ENERO, JUNIO, etc.) y muestre por la pantalla la suma total de los salarios de los empleados que fueron contratados en ese mes. Para ello debes usar el paquete libreriaEmp y las dos funciones que contiene dentro de la librería.
+--5. Crea un bloque de código anónimo que guarde en una variable 'FEBRERO' y se le pase dicha variable al procedimiento mostrarSumSalEmpMes.
 
-5. Crea un bloque de código anónimo que guarde en una variable 'FEBRERO' y se le pase dicha variable al procedimiento mostrarSumSalEmpMes.
-
-6. Excepciones a tener en cuenta:
+--6. Excepciones a tener en cuenta:
     - El mes introducido con letras debe existir. En caso contrario, crear una excepción personalizada que indique "Ese mes no existe" y devolver -1.
     - Hay al menos un empleado en la tabla EMP que fuera contratado (hiredate) en ese mes. En caso contrario, crear una excepción personalizada que indique por pantalla "No hay empleados contratados en ese mes" y devolver -1.
 
