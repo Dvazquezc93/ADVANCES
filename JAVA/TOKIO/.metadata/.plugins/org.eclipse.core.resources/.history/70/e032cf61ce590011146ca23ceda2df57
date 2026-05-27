@@ -1,0 +1,49 @@
+package modelo;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ObraNueva {
+protected String direccion;
+protected LocalDate fechaInicio;
+protected LocalDate fechaFinEstimada;
+protected BigDecimal presupuesto;
+protected List<Obrero> listaObreros;
+
+public Obra() {
+	listaObreros = new ArrayList<>();
+}
+public String getDireccion() {
+	return direccion;
+}
+public void setDireccion(String direccion) {
+	this.direccion = direccion;
+}
+public LocalDate getFechaInicio() {
+	return fechaInicio;
+}
+public void setFechaInicio(LocalDate fechaInicio) {
+	this.fechaInicio = fechaInicio;
+}
+public LocalDate getFechaFinEstimada() {
+	return fechaFinEstimada;
+}
+public void setFechaFinEstimada(LocalDate fechaFinEstimada) {
+	this.fechaFinEstimada = fechaFinEstimada;
+}
+public BigDecimal getPresupuesto() {
+	return presupuesto;
+}
+public void setPresupuesto(BigDecimal presupuesto) {
+	this.presupuesto = presupuesto;
+}
+public List<Obrero> getListaObreros() {
+	return listaObreros;
+}
+public void setListaObreros(List<Obrero> listaObreros) {
+	this.listaObreros = listaObreros;
+}
+
+}

@@ -1,0 +1,62 @@
+package servicios;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import modelo.ObraEstadoException;
+import modelo.ObreroOficial;
+
+public abstract class ObreroService {
+	public Connection openConnection() throws SQLException {
+		String user = "programacion";
+		String pass = "programacion";
+		String url = "jdbc:oracle:thin:@//localhost:1521/XE"; 				
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("La clase del driver no existe. Revisa si has incluido la librería!!");
+			throw new RuntimeException("Clase del driver no existe", e);
+		}
+		Connection conn = DriverManager.getConnection(url, user, pass);
+		return conn;
+	}
+	public void insertarOficialElectricista(String dni,String nombre,BigDecimal sueldoBase) throws BaseDatosExcetion {
+		try(Connection conn =openConnection()){
+			String sql = "insert into obrero_oficial values(?,?,?,?,?)";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dni);
+			stmt.setString(2, nombre);
+			stmt.setBigDecimal(3, sueldoBase);
+			stmt.setString(4,"Electricista" );
+			stmt.setInt(5, 0);
+		} catch (SQLException e) {
+			throw new BaseDatosExcetion("Error al insertar el ofical a la BBDD",e);
+		}
+	}
+	public ObreroOficial consultarOficialPorDni(String dni) throws BaseDatosExcetion, ObraEstadoException {
+		try(Connection conn =openConnection()){
+			String sql = "select * from obrero_oficial where dni =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, dni);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				ObreroOficial of = new ObreroOficial();
+				of.setDni(dni);
+				of.setNombre(rs.getString("nombre"));
+				of.setEspecialidad(rs.getString("especialidad"));
+				of.setSueldoBase(rs.getBigDecimal("sueldo_base"));
+				of.setAñosExperiencia(rs.getInt("anios_experiencia"));
+				return of;
+			}
+			throw new ObraEstadoException("no existe obrero con ese dni");
+		} catch (SQLException e) {
+			throw new BaseDatosExcetion("Error al insertar el ofical a la BBDD",e);
+		}
+	}
+}
+
+	

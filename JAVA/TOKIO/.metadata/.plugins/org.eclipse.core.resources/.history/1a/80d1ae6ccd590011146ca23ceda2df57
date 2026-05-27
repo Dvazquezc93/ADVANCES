@@ -1,0 +1,14 @@
+package modelo;
+
+public class ObreroOficial extends Obrero{
+protected Integer añosExperiencia;
+
+public Integer getAñosExperiencia() {
+	return añosExperiencia;
+}
+
+public void setAñosExperiencia(Integer añosExperiencia) {
+	this.añosExperiencia = añosExperiencia;
+}
+
+}

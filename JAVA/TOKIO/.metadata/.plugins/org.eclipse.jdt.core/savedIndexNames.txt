@@ -1,0 +1,5 @@
+INDEX VERSION 1.134+C:\Users\daniel.vazquez1\Desktop\TOKIO\.metadata\.plugins\org.eclipse.jdt.core
+461381828.index
+1865797976.index
+2834897946.index
+3931653448.index

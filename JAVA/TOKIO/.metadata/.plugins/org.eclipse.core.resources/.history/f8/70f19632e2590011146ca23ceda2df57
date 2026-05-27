@@ -1,0 +1,72 @@
+package ExamenBDanielVazquez.app;
+
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+import servicios.BaseDatosExcetion;
+import servicios.ObreroService;
+
+
+
+public class App {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ObreroService service = new ObreroService();
+
+        int opcion;
+        do {
+            System.out.println("\n=== GESTIÓN DE OBREROS ===");
+            System.out.println("1. Insertar obrero oficial");
+            System.out.println("2. Consultar obrero por DNI");
+            System.out.println("0. Salir");
+            System.out.print("Elige una opción: ");
+
+            opcion = Integer.parseInt(scanner.nextLine().trim());
+
+            if (opcion == 1) {
+            	insertarObreroOficial(scanner, service);
+            }
+            else if (opcion == 2) {
+            	consultarObreroOficial(scanner, service);
+            }
+            else if (opcion == 0) {
+            	System.out.println("Hasta luego.");
+            }
+            else {
+            	System.out.println("Opción no válida, intenta de nuevo.");
+            }
+
+        } while (opcion != 0);
+
+        scanner.close();
+    }
+
+    private static void insertarObreroOficial(Scanner scanner, ObreroService service) {
+    	System.out.print("Inserta dni:");
+    	String dni= scanner.nextLine();
+    	System.out.print("Inserta nombre:");
+    	String nombre= scanner.nextLine();
+    	BigDecimal sueldobase = BigDecimal.ZERO;
+    	do {
+    		try {
+    			System.out.print("Inserta sueldo base:");
+        		sueldobase =scanner.nextBigDecimal();
+			} catch (Exception e) {
+				System.out.print("insertar solo numeros");
+			}
+    		
+		} while (sueldobase.compareTo(BigDecimal.valueOf(1000))<0);
+    	 try {
+			service.insertarOficialElectricista(dni, nombre, sueldobase);
+		} catch (BaseDatosExcetion e) {
+			System.out.println(e.getMessage());
+		}
+    	
+    }
+
+    private static void consultarObreroOficial(Scanner scanner, ObreroService service) {
+		// TODO: IMPLEMENTAR....
+    }
+
+}

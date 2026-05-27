@@ -1,0 +1,29 @@
+package servicios;
+
+public class BaseDatosExcetion extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5817364601306910650L;
+
+	public BaseDatosExcetion() {
+	}
+
+	public BaseDatosExcetion(String message) {
+		super(message);
+	}
+
+	public BaseDatosExcetion(Throwable cause) {
+		super(cause);
+	}
+
+	public BaseDatosExcetion(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public BaseDatosExcetion(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+}
