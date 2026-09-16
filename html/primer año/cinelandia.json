@@ -1,0 +1,17 @@
+{
+    "nombre":"Cinelandia",
+    "dirección":"Calle falsa,123",
+    "telefono":666666666,
+    "ciudad":"Springfield",
+    "salas":{
+        "numero":1,
+        "disponible":true,
+        "aforo":120
+    },
+    "Lista_peliculas"{
+        "nombre":"Interestelar",
+        "director":"Chistopher Nolan",
+        "Genero":"Ciencia ficcion"
+    }
+    
+}

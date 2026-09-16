@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<HEAD>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Curso Html Tema 14">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Meta ,Responsive">
+    <meta name="author" content="Daniel Vázquez Chinchilla">
+    <title>Tema 17 html</title>
+    <link rel="icon" href="imagen/favicon.ico">
+    <link rel="stylesheet" href="estilos/estilostema16.css">
+    <script>
+        function mostrar_mensaje(mensaje)
+        {
+            alert(mensaje);
+        }
+    </script>
+    <head>
+
+    <body>
+        <h2>FORMULARIO CON CAMPO DE ENTRADA MÚLTIPLES LÍNEAS (ÁREA DE TEXTO)</h2>
+        <FORM action="https://www.w3Schools.com/action_page.php">
+            <textarea name="idMensaje" rows="10" cols="50">
+                ESCRIBE AQUI
+            </textarea>
+            <br><br>
+            <label for="idMensaje2">Escribe aqui una historia</label>
+            <textarea id="idMensaje2" name ="idMensaje2" style="width: 100%;height: 100px;"></textarea>
+            <br><br>
+            <input type ="submit" value="Enviar">
+        </FORM>
+        <h2>FORMULARIO CON BOTONES</h2>
+        <FORM action="https://www.w3Schools.com/action_page.php">
+            <button type ="button" onclick="alert('Hola, has pulsado el botón')">Púlsame</button>
+            <button type ="button"onclick="mostrar_mensaje('Hola, has pulsado el botón que llama a la función')">Púlsame también!</button>
+            <br><br>
+            <input type="submit" value="Enviar" class="form-submit-button">
+        </FORM>
+        <h2>FORMULARIO CON AGRUPACIÓN DE CAMPOS</h2>
+        <FORM action="https://www.w3Schools.com/action_page.php">
+            <fieldset>
+                <legend>Datos personales</legend>
+                <label for="idNombre">Nombre:</label><br>
+                <input type="text" id="idNombre" name="idNombre" value="default"><br>
+                <label for="idApellidos">Apellidos:</label><br>
+                <input type="text" id="idApellidos" name="idApellidos" value="default">
+                <br><br>
+                <label for="idCursos">Selecciona un curso:</label><br>
+                <input list="cursos">
+                <datalist id="cursos">
+                    <option value="Lenguaje de Marcas"></option>
+                    <option value="Sistemas Operativos"></option>
+                    <option value="Inglés"></option>
+                    <option value="Interfaces"></option>
+                    <option value="Programación"></option>
+                </datalist>
+            </fieldset>
+            <br>
+            <input type="submit" value="Enviar" class="form-submit-button">
+        </FORM>
+    </body>

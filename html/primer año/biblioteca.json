@@ -1,0 +1,21 @@
+{
+    "nombre": "DANIEL",
+    "dirección": "Calle Miguel Servet número 49",
+    "telefono":653551561,
+    "Ciudad": "Bormujos",
+    "Venta":false,
+    "Libros":[
+       {
+        "titulo":"EL hobbit",
+        "autor":["J.R.R. TOLKIEN","LAURA GALLEGO"],
+        "anopublicacion":1937,
+        "generos":["Fantasia","Acción"],
+        "comentarios":[{"usuario":"Auronyoungcris",
+                        "Texto":"ME ENCANTA"},{"usuario":"ESTEBANQUITO",
+                        "Texto":"PEC"},{"usuario":"TOMIHUEVOS",
+                        "Texto":"CRINGE"}]
+
+       } 
+    ]
+    
+}
